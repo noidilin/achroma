@@ -1,0 +1,304 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/noidilin/achroma/schemas/consumer.schema.json",
+  "title": "Achroma producer consumer.json contract v1",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "release",
+    "palettes",
+    "mappings"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "release": {
+      "type": "object",
+      "required": [
+        "version",
+        "sourceRevision"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "version": {
+          "type": "string",
+          "pattern": "^(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*)(?:-(?:0|[1-9][0-9]*|[0-9A-Za-z-]*[A-Za-z-][0-9A-Za-z-]*)(?:\\.(?:0|[1-9][0-9]*|[0-9A-Za-z-]*[A-Za-z-][0-9A-Za-z-]*))*)?$"
+        },
+        "sourceRevision": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        }
+      }
+    },
+    "palettes": {
+      "type": "object",
+      "required": [
+        "dark",
+        "light"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "dark": {
+          "$ref": "palette.schema.json"
+        },
+        "light": {
+          "$ref": "palette.schema.json"
+        }
+      }
+    },
+    "mappings": {
+      "type": "object",
+      "required": [
+        "stylus"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "stylus": {
+          "type": "object",
+          "required": [
+            "dark",
+            "light"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "dark": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/stylusMapping"
+                },
+                {
+                  "properties": {
+                    "flavor": {
+                      "const": "mocha"
+                    }
+                  }
+                }
+              ]
+            },
+            "light": {
+              "allOf": [
+                {
+                  "$ref": "#/$defs/stylusMapping"
+                },
+                {
+                  "properties": {
+                    "flavor": {
+                      "const": "latte"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "stylusMapping": {
+      "type": "object",
+      "required": [
+        "flavor",
+        "palette",
+        "usercssVariables",
+        "settings"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "flavor": {
+          "enum": [
+            "latte",
+            "mocha"
+          ]
+        },
+        "palette": {
+          "type": "object",
+          "required": [
+            "rosewater",
+            "flamingo",
+            "pink",
+            "mauve",
+            "red",
+            "maroon",
+            "peach",
+            "yellow",
+            "green",
+            "teal",
+            "sky",
+            "sapphire",
+            "blue",
+            "lavender",
+            "text",
+            "subtext1",
+            "subtext0",
+            "overlay2",
+            "overlay1",
+            "overlay0",
+            "surface2",
+            "surface1",
+            "surface0",
+            "base",
+            "mantle",
+            "crust"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "rosewater": {
+              "type": "string",
+              "pattern": "^#[0-9a-f]{6}$"
+            },
+            "flamingo": {
+              "type": "string",
+              "pattern": "^#[0-9a-f]{6}$"
+            },
+            "pink": {
+              "type": "string",
+              "pattern": "^#[0-9a-f]{6}$"
+            },
+            "mauve": {
+              "type": "string",
+              "pattern": "^#[0-9a-f]{6}$"
+            },
+            "red": {
+              "type": "string",
+              "pattern": "^#[0-9a-f]{6}$"
+            },
+            "maroon": {
+              "type": "string",
+              "pattern": "^#[0-9a-f]{6}$"
+            },
+            "peach": {
+              "type": "string",
+              "pattern": "^#[0-9a-f]{6}$"
+            },
+            "yellow": {
+              "type": "string",
+              "pattern": "^#[0-9a-f]{6}$"
+            },
+            "green": {
+              "type": "string",
+              "pattern": "^#[0-9a-f]{6}$"
+            },
+            "teal": {
+              "type": "string",
+              "pattern": "^#[0-9a-f]{6}$"
+            },
+            "sky": {
+              "type": "string",
+              "pattern": "^#[0-9a-f]{6}$"
+            },
+            "sapphire": {
+              "type": "string",
+              "pattern": "^#[0-9a-f]{6}$"
+            },
+            "blue": {
+              "type": "string",
+              "pattern": "^#[0-9a-f]{6}$"
+            },
+            "lavender": {
+              "type": "string",
+              "pattern": "^#[0-9a-f]{6}$"
+            },
+            "text": {
+              "type": "string",
+              "pattern": "^#[0-9a-f]{6}$"
+            },
+            "subtext1": {
+              "type": "string",
+              "pattern": "^#[0-9a-f]{6}$"
+            },
+            "subtext0": {
+              "type": "string",
+              "pattern": "^#[0-9a-f]{6}$"
+            },
+            "overlay2": {
+              "type": "string",
+              "pattern": "^#[0-9a-f]{6}$"
+            },
+            "overlay1": {
+              "type": "string",
+              "pattern": "^#[0-9a-f]{6}$"
+            },
+            "overlay0": {
+              "type": "string",
+              "pattern": "^#[0-9a-f]{6}$"
+            },
+            "surface2": {
+              "type": "string",
+              "pattern": "^#[0-9a-f]{6}$"
+            },
+            "surface1": {
+              "type": "string",
+              "pattern": "^#[0-9a-f]{6}$"
+            },
+            "surface0": {
+              "type": "string",
+              "pattern": "^#[0-9a-f]{6}$"
+            },
+            "base": {
+              "type": "string",
+              "pattern": "^#[0-9a-f]{6}$"
+            },
+            "mantle": {
+              "type": "string",
+              "pattern": "^#[0-9a-f]{6}$"
+            },
+            "crust": {
+              "type": "string",
+              "pattern": "^#[0-9a-f]{6}$"
+            }
+          }
+        },
+        "usercssVariables": {
+          "type": "object",
+          "required": [
+            "lightFlavor",
+            "darkFlavor",
+            "accentColor"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "lightFlavor": {
+              "const": "latte"
+            },
+            "darkFlavor": {
+              "const": "mocha"
+            },
+            "accentColor": {
+              "enum": [
+                "rosewater",
+                "flamingo",
+                "pink",
+                "mauve",
+                "red",
+                "maroon",
+                "peach",
+                "yellow",
+                "green",
+                "teal",
+                "sky",
+                "sapphire",
+                "blue",
+                "lavender"
+              ]
+            }
+          }
+        },
+        "settings": {
+          "type": "object",
+          "required": [
+            "updateInterval"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "updateInterval": {
+              "const": 0
+            }
+          }
+        }
+      }
+    }
+  }
+}

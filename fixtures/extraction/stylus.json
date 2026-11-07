@@ -1,0 +1,26 @@
+{
+  "artifacts": {
+    "import.json": "84cb4b1cfba2cb41076c8e2984cd254feded67b36a26b982e2e40db7ae7615b1",
+    "lib.less": "8e0bd1e98e92c7560f175132838d58e2103065514997f281a8916e3b93274717"
+  },
+  "summary": {
+    "styles": 132,
+    "settings_records": 1,
+    "imports": [],
+    "update_urls": [],
+    "light_flavors": [
+      "latte"
+    ],
+    "dark_flavors": [
+      "mocha"
+    ],
+    "accents": [
+      "rosewater"
+    ]
+  },
+  "excluded_styles": {
+    "PythonAnywhere Catppuccin": "Imports precompiled Chroma themes with hardcoded colors.",
+    "Codeberg Catppuccin": "Imports precompiled Gitea themes with hardcoded colors."
+  },
+  "reportWithoutFingerprintSha256": "96b7b3264cd7d5496881c4eef73a567dd1464b9981830581ef78eb1581bd812e"
+}

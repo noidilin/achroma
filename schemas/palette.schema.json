@@ -1,0 +1,341 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/noidilin/achroma/schemas/palette.schema.json",
+  "title": "Achroma palette contract v1",
+  "type": "object",
+  "required": [
+    "acc00",
+    "acc01",
+    "acc02",
+    "acc03",
+    "acc04",
+    "acc05",
+    "acc06",
+    "acc07",
+    "acc08",
+    "accDim00",
+    "accDim01",
+    "accDim02",
+    "accDim03",
+    "accDim04",
+    "accDim05",
+    "accDim06",
+    "accDim07",
+    "accDim08",
+    "base",
+    "blue",
+    "crust",
+    "flamingo",
+    "green",
+    "lavender",
+    "mantle",
+    "maroon",
+    "mauve",
+    "mixBlue25",
+    "mixGreen10",
+    "mixGreen25",
+    "mixMauve25",
+    "mixPeach25",
+    "mixRed10",
+    "mixRed25",
+    "mixSky25",
+    "mono00",
+    "mono04",
+    "mono06",
+    "mono08",
+    "mono10",
+    "mono12",
+    "mono14",
+    "mono16",
+    "mono18",
+    "mono20",
+    "mono22",
+    "mono23",
+    "mono24",
+    "mono25",
+    "overlay0",
+    "overlay1",
+    "overlay2",
+    "peach",
+    "pink",
+    "red",
+    "rosewater",
+    "sapphire",
+    "sky",
+    "subtext0",
+    "subtext1",
+    "surface0",
+    "surface1",
+    "surface2",
+    "teal",
+    "text",
+    "yellow"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "acc00": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "acc01": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "acc02": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "acc03": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "acc04": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "acc05": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "acc06": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "acc07": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "acc08": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "accDim00": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "accDim01": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "accDim02": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "accDim03": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "accDim04": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "accDim05": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "accDim06": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "accDim07": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "accDim08": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "base": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "blue": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "crust": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "flamingo": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "green": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "lavender": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "mantle": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "maroon": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "mauve": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "mixBlue25": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "mixGreen10": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "mixGreen25": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "mixMauve25": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "mixPeach25": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "mixRed10": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "mixRed25": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "mixSky25": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "mono00": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "mono04": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "mono06": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "mono08": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "mono10": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "mono12": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "mono14": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "mono16": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "mono18": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "mono20": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "mono22": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "mono23": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "mono24": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "mono25": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "overlay0": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "overlay1": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "overlay2": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "peach": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "pink": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "red": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "rosewater": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "sapphire": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "sky": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "subtext0": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "subtext1": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "surface0": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "surface1": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "surface2": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "teal": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "text": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    },
+    "yellow": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{6}$"
+    }
+  }
+}

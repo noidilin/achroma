@@ -1,0 +1,5 @@
+{{- /* Place data/consumer.json at .chezmoidata/achroma.json before rendering.
+       This example emits only variable values, not a browser backup. */ -}}
+{{- $mapping := .mappings.stylus.dark -}}
+{{- $vars := dict "lightFlavor" $mapping.usercssVariables.lightFlavor "darkFlavor" $mapping.usercssVariables.darkFlavor "accentColor" "blue" -}}
+{{ $vars | toPrettyJson }}

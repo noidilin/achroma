@@ -1,0 +1,17 @@
+{
+  "python": {
+    "revision": "cb372b4da29afa3446b4916c5a7f4069d598b4cb",
+    "url": "https://raw.githubusercontent.com/catppuccin/python/cb372b4da29afa3446b4916c5a7f4069d598b4cb/LICENSE",
+    "sha256": "264b1899f50472042b4ac1c4befc6279e2a8bde9b62cc743fbb560b861cfcd1f"
+  },
+  "prismjs": {
+    "revision": "d5cddefcc6f2190f5396d56b42f1f0927d64f6bb",
+    "url": "https://raw.githubusercontent.com/catppuccin/prismjs/d5cddefcc6f2190f5396d56b42f1f0927d64f6bb/LICENSE",
+    "sha256": "814096d2c34cc216c624738a49356f32b7237733b4f7edb0685f4e50ef5074ba"
+  },
+  "highlightjs": {
+    "revision": "79a8accb89c5a94010ed3968cb2b04c3d679b6ba",
+    "url": "https://raw.githubusercontent.com/catppuccin/highlightjs/79a8accb89c5a94010ed3968cb2b04c3d679b6ba/LICENSE",
+    "sha256": "814096d2c34cc216c624738a49356f32b7237733b4f7edb0685f4e50ef5074ba"
+  }
+}

@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.13.13'
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22.17.1'
+      - name: Require clean committed source
+        run: python -I -B tools/ci.py identity
+      - name: Prepare locked development dependencies (online)
+        run: npm ci --prefix tests/stylus --cache "$GITHUB_WORKSPACE/.work/npm-cache" --ignore-scripts --no-audit --no-fund
+      - name: Full validation and reproducibility (network namespace)
+        run: bash tools/ci.sh
+      - name: Archive verified candidate and exact source identity
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: checked-candidate
+          path: .work/ci-bundle/
+          if-no-files-found: error
+          retention-days: 14
+          overwrite: false
