@@ -29,6 +29,7 @@ CSS_URLS = {
 EXCLUDED = {
     'Codeberg Catppuccin': 'Imports precompiled Gitea themes with hardcoded colors.',
     'PythonAnywhere Catppuccin': 'Imports precompiled Chroma themes with hardcoded colors.',
+    'snips.sh Catppuccin': 'Imports precompiled Chroma themes with hardcoded colors.',
 }
 STANDARD_URLS = {
     'https://userstyles.catppuccin.com/lib/lib.less',
