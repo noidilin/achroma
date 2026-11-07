@@ -1,0 +1,13 @@
+{
+  "name": "achroma-stylus-validation",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node check.mjs"
+  },
+  "devDependencies": {
+    "less": "4.9.1",
+    "postcss": "8.5.29",
+    "usercss-meta": "0.12.0"
+  }
+}

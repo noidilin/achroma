@@ -1,0 +1,589 @@
+{
+  "schemaVersion": 1,
+  "fitterVersion": 1,
+  "resolvedPalettesSha256": "8844ced9f21dc38448bc14c5f5c02c948bd9048567b281376da4fd7c5934e12a",
+  "provenance": {
+    "sourceRevision": "41572a8510f6ce8f567b12371d91016eec1a90f6",
+    "sourceArchiveSha256": "0a1c0b12a81ea226d5b79b43f9ddb6a651df467df353d5ebfab93833ba064c7a",
+    "nativeArtifacts": {
+      "import.json": "84cb4b1cfba2cb41076c8e2984cd254feded67b36a26b982e2e40db7ae7615b1",
+      "lib.less": "8e0bd1e98e92c7560f175132838d58e2103065514997f281a8916e3b93274717"
+    },
+    "runtime": "CPython 3.13.13; macOS arm64",
+    "note": "Independently accepted uncommitted extraction candidate, not a published release; coefficients transcribed from its approved native filters."
+  },
+  "filters": {
+    "#151515": {
+      "parameters": [
+        8.2353,
+        0.0,
+        100.0,
+        0.0,
+        100.0,
+        100.0
+      ],
+      "maxChannelError": 0.0
+    },
+    "#191919": {
+      "parameters": [
+        9.8039,
+        0.0,
+        100.0,
+        0.0,
+        100.0,
+        100.0
+      ],
+      "maxChannelError": 0.0001
+    },
+    "#1e1e1e": {
+      "parameters": [
+        11.7647,
+        0.0,
+        100.0,
+        0.0,
+        100.0,
+        100.0
+      ],
+      "maxChannelError": 0.0
+    },
+    "#2a2a2a": {
+      "parameters": [
+        16.4706,
+        0.0,
+        100.0,
+        0.0,
+        100.0,
+        100.0
+      ],
+      "maxChannelError": 0.0
+    },
+    "#35312a": {
+      "parameters": [
+        18.7935,
+        1.0699,
+        5308.0,
+        359.676,
+        99.46,
+        98.0
+      ],
+      "maxChannelError": 0.0263
+    },
+    "#353535": {
+      "parameters": [
+        20.7843,
+        0.0,
+        100.0,
+        0.0,
+        100.0,
+        100.0
+      ],
+      "maxChannelError": 0.0
+    },
+    "#384f68": {
+      "parameters": [
+        32.9718,
+        100.0,
+        116.2838,
+        170.7164,
+        86.32,
+        131.4
+      ],
+      "maxChannelError": 0.0917
+    },
+    "#3a3a3a": {
+      "parameters": [
+        22.7451,
+        0.0,
+        100.0,
+        0.0,
+        100.0,
+        100.0
+      ],
+      "maxChannelError": 0.0
+    },
+    "#3b5a5a": {
+      "parameters": [
+        31.2418,
+        92.7284,
+        80.0,
+        131.1038,
+        100.0,
+        138.12
+      ],
+      "maxChannelError": 0.0074
+    },
+    "#3d573d": {
+      "parameters": [
+        26.2903,
+        57.2421,
+        231.6405,
+        70.9766,
+        101.66,
+        94.0
+      ],
+      "maxChannelError": 0.0144
+    },
+    "#414141": {
+      "parameters": [
+        25.4902,
+        0.0,
+        100.0,
+        0.0,
+        100.0,
+        100.0
+      ],
+      "maxChannelError": 0.0
+    },
+    "#454037": {
+      "parameters": [
+        24.5452,
+        9.8,
+        533.9853,
+        0.18,
+        102.0,
+        101.2
+      ],
+      "maxChannelError": 0.0338
+    },
+    "#4a4a66": {
+      "parameters": [
+        12.6797,
+        80.3935,
+        427.9429,
+        201.5317,
+        120.28,
+        62.86
+      ],
+      "maxChannelError": 0.0238
+    },
+    "#4a6480": {
+      "parameters": [
+        39.4771,
+        32.3329,
+        245.4455,
+        170.4653,
+        100.0,
+        156.5
+      ],
+      "maxChannelError": 0.0114
+    },
+    "#4d4d4d": {
+      "parameters": [
+        30.1961,
+        0.0,
+        100.0,
+        0.0,
+        100.0,
+        100.0
+      ],
+      "maxChannelError": 0.0001
+    },
+    "#4e4e4e": {
+      "parameters": [
+        30.5882,
+        0.0,
+        100.0,
+        0.0,
+        100.0,
+        100.0
+      ],
+      "maxChannelError": 0.0001
+    },
+    "#4f6b4f": {
+      "parameters": [
+        16.7705,
+        100.0,
+        178.4,
+        72.3307,
+        167.88,
+        71.02
+      ],
+      "maxChannelError": 0.478
+    },
+    "#4f7070": {
+      "parameters": [
+        19.6078,
+        82.5278,
+        240.0,
+        131.1475,
+        150.76,
+        58.2
+      ],
+      "maxChannelError": 0.0184
+    },
+    "#5c4c2c": {
+      "parameters": [
+        26.6824,
+        21.2549,
+        750.9773,
+        1.692,
+        108.2,
+        99.8
+      ],
+      "maxChannelError": 0.0258
+    },
+    "#5c5c5c": {
+      "parameters": [
+        36.0784,
+        0.0,
+        100.0,
+        0.0,
+        100.0,
+        100.0
+      ],
+      "maxChannelError": 0.0001
+    },
+    "#5d5d5d": {
+      "parameters": [
+        36.4706,
+        0.0,
+        100.0,
+        0.0,
+        100.0,
+        100.0
+      ],
+      "maxChannelError": 0.0
+    },
+    "#5f5f7e": {
+      "parameters": [
+        41.3072,
+        16.93,
+        316.6494,
+        201.4996,
+        100.0,
+        165.12
+      ],
+      "maxChannelError": 0.0243
+    },
+    "#6e6e6e": {
+      "parameters": [
+        43.1373,
+        0.0,
+        100.0,
+        0.0,
+        100.0,
+        100.0
+      ],
+      "maxChannelError": 0.0001
+    },
+    "#6f5c37": {
+      "parameters": [
+        34.6255,
+        97.77,
+        78.2433,
+        1.332,
+        103.0,
+        196.0
+      ],
+      "maxChannelError": 0.0094
+    },
+    "#707070": {
+      "parameters": [
+        43.9216,
+        0.0,
+        100.0,
+        0.0,
+        100.0,
+        100.0
+      ],
+      "maxChannelError": 0.0001
+    },
+    "#769494": {
+      "parameters": [
+        90.1176,
+        97.76,
+        240.0,
+        98.8999,
+        66.0,
+        50.22
+      ],
+      "maxChannelError": 0.0102
+    },
+    "#778777": {
+      "parameters": [
+        48.7582,
+        18.0,
+        130.9529,
+        70.9205,
+        100.0,
+        178.4
+      ],
+      "maxChannelError": 0.0128
+    },
+    "#797994": {
+      "parameters": [
+        47.9804,
+        35.5344,
+        160.5583,
+        201.5133,
+        94.0,
+        123.72
+      ],
+      "maxChannelError": 0.0204
+    },
+    "#7d96ad": {
+      "parameters": [
+        94.8021,
+        48.338,
+        969.2793,
+        174.0273,
+        60.0,
+        178.18
+      ],
+      "maxChannelError": 0.1217
+    },
+    "#7f4747": {
+      "parameters": [
+        15.1634,
+        62.47,
+        2093.2853,
+        335.609,
+        98.98,
+        57.74
+      ],
+      "maxChannelError": 0.0149
+    },
+    "#878787": {
+      "parameters": [
+        52.9412,
+        0.0,
+        100.0,
+        0.0,
+        100.0,
+        100.0
+      ],
+      "maxChannelError": 0.0001
+    },
+    "#8a8a8a": {
+      "parameters": [
+        54.1176,
+        0.0,
+        100.0,
+        0.0,
+        100.0,
+        100.0
+      ],
+      "maxChannelError": 0.0001
+    },
+    "#92b3b3": {
+      "parameters": [
+        68.3424,
+        60.5393,
+        146.5415,
+        131.0731,
+        108.2,
+        51.94
+      ],
+      "maxChannelError": 0.0097
+    },
+    "#9b5f5f": {
+      "parameters": [
+        25.098,
+        43.0572,
+        343.1242,
+        311.1541,
+        156.0,
+        107.14
+      ],
+      "maxChannelError": 0.0279
+    },
+    "#9bb09b": {
+      "parameters": [
+        41.2594,
+        97.14,
+        64.0,
+        70.9907,
+        146.84,
+        71.7
+      ],
+      "maxChannelError": 0.0543
+    },
+    "#9d9d9d": {
+      "parameters": [
+        61.5686,
+        0.0,
+        100.0,
+        0.0,
+        100.0,
+        100.0
+      ],
+      "maxChannelError": 0.0001
+    },
+    "#9db2cf": {
+      "parameters": [
+        50.0797,
+        99.91,
+        48.0,
+        175.6488,
+        97.6,
+        199.82
+      ],
+      "maxChannelError": 0.3024
+    },
+    "#9f9fbd": {
+      "parameters": [
+        66.2445,
+        2.8214,
+        2382.5886,
+        201.5019,
+        100.0,
+        79.34
+      ],
+      "maxChannelError": 0.0321
+    },
+    "#b07878": {
+      "parameters": [
+        32.3791,
+        76.7792,
+        160.0,
+        311.0596,
+        136.8,
+        106.34
+      ],
+      "maxChannelError": 0.0385
+    },
+    "#b3b3b3": {
+      "parameters": [
+        70.1961,
+        0.0,
+        100.0,
+        0.0,
+        100.0,
+        100.0
+      ],
+      "maxChannelError": 0.0001
+    },
+    "#b4b4b4": {
+      "parameters": [
+        70.5882,
+        0.0,
+        100.0,
+        0.0,
+        100.0,
+        100.0
+      ],
+      "maxChannelError": 0.0001
+    },
+    "#c0baad": {
+      "parameters": [
+        100.0,
+        17.813,
+        1907.2526,
+        315.6318,
+        93.14,
+        58.68
+      ],
+      "maxChannelError": 0.0521
+    },
+    "#cc9393": {
+      "parameters": [
+        65.798,
+        100.0,
+        3280.0,
+        319.5049,
+        154.54,
+        60.0
+      ],
+      "maxChannelError": 0.0085
+    },
+    "#d4d4d4": {
+      "parameters": [
+        83.1373,
+        0.0,
+        100.0,
+        0.0,
+        100.0,
+        100.0
+      ],
+      "maxChannelError": 0.0001
+    },
+    "#d6caab": {
+      "parameters": [
+        65.222,
+        62.9469,
+        221.2259,
+        335.753,
+        134.0,
+        67.88
+      ],
+      "maxChannelError": 0.047
+    },
+    "#dad5c8": {
+      "parameters": [
+        82.4837,
+        2.0,
+        1050.9913,
+        5.6365,
+        100.0,
+        102.26
+      ],
+      "maxChannelError": 0.0051
+    },
+    "#e0e0e0": {
+      "parameters": [
+        87.8431,
+        0.0,
+        100.0,
+        0.0,
+        100.0,
+        100.0
+      ],
+      "maxChannelError": 0.0001
+    },
+    "#eaeaea": {
+      "parameters": [
+        91.7647,
+        0.0,
+        100.0,
+        0.0,
+        100.0,
+        100.0
+      ],
+      "maxChannelError": 0.0
+    },
+    "#ebd6b7": {
+      "parameters": [
+        97.4,
+        99.94,
+        484.125,
+        309.348,
+        99.6,
+        85.06
+      ],
+      "maxChannelError": 0.0839
+    },
+    "#ededed": {
+      "parameters": [
+        92.9412,
+        0.0,
+        100.0,
+        0.0,
+        100.0,
+        100.0
+      ],
+      "maxChannelError": 0.0001
+    },
+    "#f7f7f7": {
+      "parameters": [
+        96.8627,
+        0.0,
+        100.0,
+        0.0,
+        100.0,
+        100.0
+      ],
+      "maxChannelError": 0.0001
+    },
+    "#fafafa": {
+      "parameters": [
+        98.0392,
+        0.0,
+        100.0,
+        0.0,
+        100.0,
+        100.0
+      ],
+      "maxChannelError": 0.0
+    }
+  }
+}
