@@ -125,6 +125,11 @@ network responses; normal generation verifies every locked checksum first.
 Rebuild and compile all styles before promotion. Review syntax CSS license notices
 in `licenses/` when updating those dependencies.
 
+Scheduled draft refresh proposals use the same updater, with separate offline
+validation and a data-only PR publisher. See [scheduled upstream proposals](upstream-refresh.md)
+for the weekly schedule, permission gate, failed-baseline review path and CI-trigger
+limitations. They never update filters, palettes, fixtures or notices automatically.
+
 ## Manual browser gate
 
 1. Export the **live** Stylus backup before any import.

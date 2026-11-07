@@ -10,6 +10,11 @@ hosted library, install themes, import browser state, or integrate chezmoi.
 
 - `ci.yml`: pull requests and branch pushes, `contents: read`, no secrets or
   privileged PR trigger. PRs validate the actual checked-out merge commit.
+- `upstream-refresh.yml`: weekly/manual draft snapshot proposals only, with separate
+  read-only refresh/validation and narrowly scoped PR-writing jobs. It cannot
+  publish or approve releases. See [upstream proposals](upstream-refresh.md) for
+  the Actions PR permission gate and why explicit refresh checks do not satisfy
+  required PR CI automatically.
 - `release.yml`: only pushed `v*` tags; nonsemantic tags fail. `v0.1.0` maps to
   producer `0.1.0`; `v0.1.0-rc.1` maps to `0.1.0-rc.1`. No build metadata or leading
   zero numeric identifiers. There is no separate producer version file: the tag
