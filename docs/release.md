@@ -1,10 +1,10 @@
 # CI and first-release runbook
 
-This phase prepares CI/release automation, not a release. It does not stage,
-commit, tag, push, publish, change repository settings, replace the legacy hosted
-library, install themes, or integrate chezmoi. The currently uncommitted source and
-its recorded input hashes are valid **local evidence, not releasable provenance**.
-Independent review and the operator gates below remain required.
+This runbook describes the approved CI/release process. Publication requires
+operator authorization, successful checks on committed source, verified artifacts,
+and protected-environment approval. Earlier dirty-tree candidate hashes are local
+evidence, not releasable provenance. Release automation does not replace the legacy
+hosted library, install themes, import browser state, or integrate chezmoi.
 
 ## Workflow contract
 
@@ -85,13 +85,16 @@ Local actionlint is syntax/static validation, **not remote Actions execution**.
    Stage only explicitly approved paths, inspect the staged diff, and commit the
    complete approved tree. Preserve the original `.work/review-fixed` evidence.
    Do not include caches, node_modules, personal files, or dotfiles changes.
-2. Configure repository Actions policy to permit only reviewed pinned actions;
-   select read-only default token permissions and required PR CI checks. Protect
+2. Audit the immutable action pins in the release workflows; retain read-only
+   default token permissions and required PR CI checks. Any repository-wide action
+   allowlist change must separately account for the existing Pages workflow. Protect
    release tags from unauthorized creation, movement, or deletion. Confirm the
    existing Pages source is still `main` / `/`; do not deploy Pages here.
-3. **Create environment `release` with required trusted reviewers**, prevent
-   self-review, restrict deployment tags to reviewed `v*` tags, and disable bypass
-   where available. Confirm repository visibility/plan actually supports and
+3. **Create environment `release` with required trusted reviewers**, restrict
+   deployment tags to reviewed `v*` tags, and disable bypass where available.
+   For this single-maintainer repository, the operator explicitly permits
+   self-review (`prevent_self_review=false`); required approval remains enabled
+   and `can_admins_bypass=false`. Do not change that policy implicitly. Confirm repository visibility/plan actually supports and
    enforces these protection rules. An environment name can be auto-created with
    **no** protection; neither that name nor a repository variable guarantees human
    review. If reviewer enforcement is unavailable, keep publication disabled.
@@ -119,17 +122,20 @@ Local actionlint is syntax/static validation, **not remote Actions execution**.
    `tools/verify.py`. A PR merge-SHA check alone is not proof of a different final
    commit; require its branch-push CI too. Local success/actionlint do not satisfy
    this gate. Inspect Linux namespace setup logs; do not weaken isolation if it fails.
-4. Complete independent manual browser acceptance of that candidate in an isolated
-   profile: export a live backup first; import 132 styles, test dark/light and
-   preserved Frappé/Macchiato paths, chosen accent/settings and representative
-   document scopes, reimport behavior, excluded-style retention, global
-   `updateInterval = 0` effect on unrelated styles, and backup restore/rollback.
-   Record browser/Stylus versions and what was/was not visually tested. Compiler
-   success is not visual or real import acceptance. No command here imports state.
+4. Obtain operator browser acceptance of the verified candidate. Recommended
+   coverage in an isolated profile: export a live backup first; import 132 styles,
+   test dark/light and preserved Frappé/Macchiato paths, chosen accent/settings and
+   representative document scopes, reimport behavior, excluded-style retention,
+   global `updateInterval = 0` effects and backup restore/rollback. Record supplied
+   browser/Stylus versions and results; mark unreported checks as unknown rather
+   than inferring success. For 0.1.0 the operator confirmed the prepared candidate
+   looked good and explicitly authorized publication with those coverage limits
+   documented in its release notes. Compiler success is separate evidence.
+   Reconcile final native hashes with the tested candidate before publication.
 5. After review/setup, enable the repository variable. From the clean intended
    commit, the operator may create and push an immutable `v<version>` tag pointing
-   to exactly that SHA. Do not move a tag to repair failures. These are future
-   operator actions, **not actions performed by this preparation task**.
+   to exactly that SHA. Do not move a tag to repair failures. Tagging and publication
+   require explicit operator authorization; preparation alone grants neither.
 6. Wait for the tag build to pass the same offline checks and actual-version
    reproducibility. Before approving environment `release`, independently inspect
    its source revision, notes, artifact ID/checksums and ZIP; reconcile them to the
