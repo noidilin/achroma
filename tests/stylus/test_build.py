@@ -8,6 +8,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[2]
 CONFIG = ROOT / 'applications/stylus'
@@ -169,7 +170,8 @@ class BuildTests(unittest.TestCase):
         first = (self.output / 'import.json').read_bytes()
         report = build.load_json(self.output / 'build-report.json')
         self.assertEqual(report['summary']['styles'], 132)
-        self.assertEqual(set(report['excluded_styles']), set(build.EXCLUDED))
+        self.assertEqual(set(report['excluded_styles']),
+                         {'Codeberg Catppuccin', 'PythonAnywhere Catppuccin'})
         mtime = (self.output / 'import.json').stat().st_mtime_ns
         self.run_build()
         self.assertEqual(mtime, (self.output / 'import.json').stat().st_mtime_ns)
@@ -178,6 +180,31 @@ class BuildTests(unittest.TestCase):
         self.assertEqual(first, (self.output / 'import.json').read_bytes())
         self.assertFalse(report['summary']['imports'])
         self.assertFalse(report['summary']['update_urls'])
+
+    def test_snips_chroma_is_explicitly_excluded_from_refresh_and_build(self):
+        vendor = self.config / 'vendor'
+        lock, inputs = build.vendor_inputs(vendor)
+        records = json.loads(inputs['export.json'])
+        snips = fixture()[1]
+        snips['name'] = 'snips.sh Catppuccin'
+        snips['sourceCode'] += ('\n@import (css) '
+                               'url("https://chroma.catppuccin.com/@{lightFlavor}-chroma-style.css") '
+                               '(prefers-color-scheme: light);')
+        # The dependency remains unsupported in general, not silently stripped.
+        with self.assertRaisesRegex(ValueError, 'unsupported dependency'):
+            build.transform([snips], '', 'rosewater')
+        inputs['export.json'] = build.json_bytes(records + [snips])
+        urls = {entry['url']: inputs[name] for name, entry in lock['files'].items()}
+        with patch.object(build, 'download', side_effect=urls.__getitem__):
+            build.update(vendor, lock['standard_commit'], lock['files']['export.json']['url'])
+        self.run_build()
+        report = build.load_json(self.output / 'build-report.json')
+        self.assertEqual(report['summary']['styles'], 132)
+        self.assertEqual(report['excluded_styles']['snips.sh Catppuccin'],
+                         'Imports precompiled Chroma themes with hardcoded colors.')
+        self.assertEqual(set(report['excluded_styles']), set(build.EXCLUDED))
+        self.assertNotIn('snips.sh Catppuccin',
+                         {style.get('name') for style in build.load_json(self.output / 'import.json')})
 
     def test_failure_preserves_previous_output(self):
         self.run_build()

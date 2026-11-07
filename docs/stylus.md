@@ -8,8 +8,13 @@ shell variable. This extraction does not redesign selectors or upstream behavior
 
 The original 134-style snapshot yields 132 styles. Codeberg and PythonAnywhere
 are excluded because they import precompiled hardcoded themes rather than
-variable-based dependencies. Both exclusions appear in the report. Existing
-copies are not removed by reimport; disable them manually if desired.
+variable-based dependencies. snips.sh is also explicitly excluded from future
+refreshes because it imports precompiled Chroma syntax themes with hardcoded
+colors and flavor-dependent media imports. Chroma CSS support is deferred by
+operator decision, not silently permitted or stripped. snips.sh is absent from
+the original snapshot, so this policy does not change its 132 generated styles.
+Exclusions present in the input appear in the report. Existing copies are not
+removed by reimport; disable them manually if desired.
 
 Default filters come from the versioned `applications/stylus/filters.lock.json`,
 a **canonical derived build input** transcribed from the independently approved
