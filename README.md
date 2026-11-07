@@ -59,7 +59,10 @@ up required reviewers on the `release` environment. See the
 - `palette/{dark,light}.json`: canonical 66-key palettes, lowercase `#rrggbb`.
 - `applications/stylus/mapping.json`: role references and default accent.
 - `applications/stylus/vendor/`: unchanged locked snapshots and MIT license.
-- `applications/stylus/{build,filters}.py`: stdlib generator and seeded filter fit.
+- `applications/stylus/{build,filters}.py`: stdlib generator and validated default filters.
+- `applications/stylus/filters.lock.json`: versioned, reviewed default coefficients
+  preserving approved native bytes across platforms; never a diagnostic cache.
+  Explicit custom-color fitting remains platform-dependent (see [refresh/customization](docs/stylus.md)).
 - `tools/build.py`: disposable staging adapter and reproducible release packaging.
 - `schemas/`, `fixtures/`, `tests/`: contract and extraction fidelity evidence.
 - `licenses/`: preserved upstream MIT notices and license-source provenance.

@@ -192,3 +192,121 @@ prove exact-commit remote CI/Linux isolation, complete manual browser acceptance
 and only then enable tag publication and approve the verified artifact. Publication defaults disabled (`RELEASE_PUBLICATION_ENABLED` must be
 explicitly set after setup). An environment name alone guarantees no approval.
 See the first-release runbook; no release has been created by this phase.
+
+## Hosted Linux failure and approved coefficient-lock repair
+
+The operator subsequently committed/pushed the approved extraction and CI tree as
+`3e091fbc61bfd5fdaf5df38bc34727b034362d5f`. Hosted
+[CI run 42375625742](https://github.com/noidilin/achroma/actions/runs/42375625742)
+completed pinned runtime setup, locked npm preparation and network-namespace setup,
+but failed `test_real_native_bytes_match_baseline`. All 22 relocated tests and the
+other 30 contract/CI tests passed; the two isolated Linux builds matched each other.
+The failure occurred before the required real compiler step, so this run is not a
+successful full CI gate. Logs were fetched read-only with `gh run view --log-failed`
+to `.work/linux-failure.log`; that failed run had no uploaded artifacts.
+
+### Exact root cause and scope
+
+The already-running Colima VM provided preinstalled Linux arm64 Python **3.12.3**.
+Without installing any tools or images, its unmodified build reproduced the hosted
+Linux x64 Python 3.13.13 ZIP exactly:
+`2541039fcb9513e10b58532b57c1fe24179efa7f86130c5e72f23fc489608305`
+(using the fixture source revision/version). This supplied the missing native
+outputs for byte-level inspection.
+
+Only the fitted filter for **light green `#4f6b4f`** differed. Replacing that single
+CSS string restored the approved `lib.less` bytes exactly; replacing its 132
+embedded copies restored `import.json` exactly. No palette values, selectors,
+metadata or other filters differed. Proof: `.work/linux-investigation/native.diff`,
+`report.diff`, and `byte-difference-proof.log`.
+
+Traces found the first numeric/branch divergence at search trial index **54**,
+restart **0**, scale **0.08**, hue axis, negative step, with **saturation zero**:
+
+- Hue input: `0x1.4e2746ef4e6f0p+1`.
+- macOS `sin`: `0x1.034878b9b6c0dp-1`; Linux: `0x1.034878b9b6c0cp-1` (one ULP).
+  `cos` was identical.
+- Current loss: `0x1.06985f934dc52p+9`.
+- macOS trial loss: `0x1.06985f934dc54p+9` (rejected).
+- Linux trial loss: `0x1.06985f934dc4fp+9` (accepted).
+
+Hue rotation is mathematically irrelevant at zero saturation, but floating-point
+matrix evaluation introduced spurious improvements. Linux accepted its first
+restart, emitting `[34.6405, 83.5250, 80, 70.9869, 104, 149]` with error **0.0066**;
+macOS continued through restart 2, emitting approved
+`[16.7705, 100, 178.4, 72.3307, 167.88, 71.02]` with error **0.478**. Parameters here
+are invert/sepia/saturate percentages, hue degrees, brightness/contrast percentages.
+Both satisfy the existing tolerance, but accepting the Linux bytes would silently
+change reviewed output. This is an **inherited numerical portability defect**:
+`filters.py` at commit `3e091fb` is byte-identical to dotfiles revision
+`530cad951a3f1e401774839f3c8a2853240341b1`, SHA-256
+`b47a3a19a685713e3f360bf190abaae5188a25862ec0ea4ac3b2b91264a59c18`.
+
+Evidence: `mac-trace.json`, `linux-trace.json`, `first-branch.json`,
+`{mac,linux}-components.log`, and `root-cause-summary.log` under
+`.work/linux-investigation/`. Scratch tolerance/trig-rounding experiments either
+retained the mismatch or changed additional approved filters; none were promoted.
+
+### Approved bounded repair
+
+The user explicitly selected a **versioned lock of approved default coefficients**,
+not platform-specific baselines or an optimizer redesign. New
+`applications/stylus/filters.lock.json` records all 52 resolved colors, rounded
+coefficients, measured errors, the complete resolved-palette digest, fitter/schema
+versions, and provenance linking the independently accepted `0a1c0b12…` candidate
+and original native hashes. This is a new **canonical derived build input**, not
+trusted cache data. The manifest now requires/hashes this 23rd build input.
+
+Normal builds validate exact schema/types/fields, duplicate-key rejection, exact
+palette/role digest and color coverage, finite bounded six-parameter shapes,
+four-decimal quantization, recomputed emitted-filter tolerance and recorded error.
+Missing/stale/invalid locks fail before cached-output reuse; there is no fallback
+to fitting. The original fitter remains only behind explicit `--fit-custom-colors`
+for custom source experiments, documented as potentially platform-dependent.
+Reviewed refresh instructions are in `stylus.md`. Existing native baseline equality
+assertions and all original fixtures remain unchanged.
+
+### Repair validation (uncommitted local evidence)
+
+- macOS Python **3.13.13**, Node **22.17.1**:
+  `python3 -I -B tools/check.py --output .work/linux-investigation/mac-final --cache
+  .work/linux-investigation/mac-final-cache --version 0.1.0-dev --source-revision
+  3e091fbc61bfd5fdaf5df38bc34727b034362d5f` passed **60 Python tests**, archive
+  verification, **132 × 2 style paths / 310 sections**, and the consumer example.
+  Log: `.work/linux-investigation/mac-full-check-final.log`.
+- Existing Colima Linux arm64 Python **3.12.3**, in a fresh `sudo unshare --net`
+  namespace with privileges dropped to the VM user, ran all **60 Python tests**,
+  default build, archive verification and consumer example successfully. Only
+  loopback was visible; scratch/HOME/TMPDIR remained checkout-local. Exact script:
+  `.work/linux-investigation/check-linux-final.sh`; log:
+  `.work/linux-investigation/linux-isolated-check-final.log`. Node is not installed
+  in that VM; no compiler-on-Linux execution is claimed.
+- The seven new lock regressions cover malformed/stale/missing/duplicate locks,
+  palette/role and exact-color coverage, parameter/error validation, invalid-lock
+  failure despite existing successful output, lock manifest hashing, and the actual
+  Linux one-ULP `sin` value. The latter reproduces the custom search mismatch and
+  proves default generation preserves baseline bytes without calling the fitter.
+- macOS and Linux final archives are byte-identical, SHA-256
+  `7e5a86cdbae824822ee63637de5b80aebcd6671286f96fbd7d0cc9b03803b40a`.
+  The archive changes because source input hashes, the report fingerprint, and the
+  supplied revision now differ; **native outputs remain byte-identical** to the
+  approved candidate: `import.json` = `84cb4b1cfba2cb41076c8e2984cd254feded67b36a26b982e2e40db7ae7615b1`,
+  `lib.less` = `8e0bd1e98e92c7560f175132838d58e2103065514997f281a8916e3b93274717`.
+  Linux-generated native bytes were also compiled with macOS Node 22.17.1:
+  `.work/linux-investigation/linux-output-compiler.log`.
+- Frozen legacy hash remains `73f2609f5346c5bab0afa0bed0db4b1b9a7eff83b94d1321bdf18194acf21f22`;
+  `.work/review-fixed` and its original archive hash are preserved. No palette,
+  mapping, vendor, baseline-fixture, workflow or Pages changes were made by this
+  repair. No files staged; no commits/pushes/tags/publication/settings changes or
+  system tooling installations performed by the repair worker; dotfiles is read-only.
+
+These are dirty-tree local candidate hashes, **not release provenance**. Independent
+review approved the repair without required changes and reproduced all 60 tests,
+132 × 2 compiler paths / 310 sections, native hashes and the candidate ZIP using
+macOS Python 3.15.2 / Node 26.13.0. Local reviewer evidence:
+`/tmp/achroma-lock-review.5qGlw0`. Operator-authorized commit/push must precede a
+successful hosted Linux **x64 Python 3.13.13 / Node 22.17.1** rerun on the exact new
+commit. That gate, environment/operator prerequisites and browser acceptance remain
+outstanding.
+The hosted action Node20 deprecation warnings are nonblocking and deferred outside
+this numerical repair; no action upgrades were bundled into it.

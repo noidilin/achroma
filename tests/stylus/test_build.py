@@ -161,7 +161,8 @@ class BuildTests(unittest.TestCase):
         self.cache = self.root / 'cache'
 
     def run_build(self):
-        build.build(self.config, self.output, self.cache)
+        # This synthetic gray palette is deliberately not the locked default.
+        build.build(self.config, self.output, self.cache, fit_custom_colors=True)
 
     def test_real_export_and_reproducibility(self):
         self.run_build()
@@ -216,7 +217,7 @@ class BuildTests(unittest.TestCase):
                    XDG_CACHE_HOME=str(self.root / 'unused cache'))
         subprocess.run([sys.executable, '-B', str(self.config / 'build.py'), 'build',
                         '--config', str(self.config), '--output', str(output),
-                        '--cache', str(self.cache)], env=env, check=True)
+                        '--cache', str(self.cache), '--fit-custom-colors'], env=env, check=True)
         self.assertTrue((output / 'import.json').exists())
         self.assertFalse((self.root / 'unused data').exists())
 

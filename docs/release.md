@@ -170,8 +170,11 @@ and `artifacts`. `release` matches the consumer aggregate's `version` and
 `sourceRevision`; input/artifact maps use relative POSIX paths and SHA-256 values.
 `applications.stylus` records native format, compatibility caveat, all preserved
 native names, style count, and variant/flavor identity. Build inputs record
-canonical palettes, mapping, producer code, schemas, vendor snapshots/lock, and
-license notices. Upstream URLs in lock/report are provenance, not downloaded or
+canonical palettes, mapping, producer code, schemas, vendor snapshots/lock,
+`applications/stylus/filters.lock.json` (reviewed default coefficients), and license
+notices. Default generation validates that lock and never silently fits defaults.
+Its explicit reviewed refresh and platform-dependent custom-fitting exception are
+covered in [Stylus production](stylus.md). Upstream URLs in lock/report are provenance, not downloaded or
 mutable build inputs. Supplied revision must be a full SHA; local uncommitted
 candidate inputs are identified by hashes but cannot pass the CI clean-tree gate.
 

@@ -23,7 +23,8 @@ VENDOR_NAMES = {'LICENSE', 'export.json', 'highlightjs-important.css', 'highligh
                 'prism.css', 'pygments.css', 'std.less'}
 BUILD_INPUT_PATHS = ({'tools/build.py', 'tools/contract.py', 'schemas/consumer.schema.json',
                       'schemas/palette.schema.json', 'applications/stylus/build.py',
-                      'applications/stylus/filters.py', 'applications/stylus/mapping.json'}
+                      'applications/stylus/filters.py', 'applications/stylus/filters.lock.json',
+                      'applications/stylus/mapping.json'}
                      | {f'palette/{v}.json' for v in FLAVORS}
                      | {f'applications/stylus/vendor/{name}' for name in VENDOR_NAMES | {'upstream.lock.json'}}
                      | LICENSE_PATHS)

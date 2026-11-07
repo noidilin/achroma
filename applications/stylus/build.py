@@ -202,13 +202,15 @@ def vendor_inputs(directory):
     return lock, inputs
 
 
-def build(config, destination, cache):
+def build(config, destination, cache, *, fit_custom_colors=False):
     mapping = load_json(config / 'mapping.json')
     palettes = resolve_palettes(load_json(config / 'palette.json'), mapping)
     lock, inputs = vendor_inputs(config / 'vendor')
+    filter_input = b'explicit-custom-fit' if fit_custom_colors else (config / 'filters.lock.json').read_bytes()
+    fitted = None if fit_custom_colors else filters.locked(palettes, config / 'filters.lock.json')
     fingerprint = digest(b''.join([
         (config / 'palette.json').read_bytes(), (config / 'mapping.json').read_bytes(),
-        json_bytes(lock), Path(__file__).read_bytes(), (HERE / 'filters.py').read_bytes(),
+        json_bytes(lock), Path(__file__).read_bytes(), (HERE / 'filters.py').read_bytes(), filter_input,
     ]))
     report_path = destination / 'build-report.json'
     export_path = destination / 'import.json'
@@ -221,11 +223,12 @@ def build(config, destination, cache):
             print(f'Unchanged: {export_path}')
             return
     cache_path = cache / f'filters-v{filters.VERSION}.json'
-    # Fitting these muted colors is cheap. Recompute deterministically rather than
-    # allowing a stale/corrupt cache to influence a release artifact.
-    fitted = {color: filters.fit(color) for color in sorted(
-        {c for palette in palettes.values() for c in palette.values()}
-    )}
+    # Default coefficients are reviewed source input, never disposable cache data.
+    # Only explicitly customized builds opt into the platform-dependent fitter.
+    if fit_custom_colors:
+        fitted = {color: filters.fit(color) for color in sorted(
+            {c for palette in palettes.values() for c in palette.values()}
+        )}
     library = ('/*\n' + inputs['LICENSE'].decode().replace('*/', '* /') + '*/\n'
                + make_library(inputs['std.less'].decode(), palettes, fitted))
     upstream_records = json.loads(inputs['export.json'])
@@ -284,6 +287,8 @@ def main():
     build_parser.add_argument('--config', type=Path, required=True)
     build_parser.add_argument('--output', type=Path, required=True)
     build_parser.add_argument('--cache', type=Path, required=True)
+    build_parser.add_argument('--fit-custom-colors', action='store_true',
+                              help='Explicitly bypass default lock for platform-dependent custom fitting')
     check = commands.add_parser('check', help='Verify generated artifact hashes and safety (not compilation)')
     check.add_argument('--output', type=Path, required=True)
     examine = commands.add_parser('examine', help='Inspect a generated or legacy Stylus export')
@@ -295,7 +300,7 @@ def main():
     args = parser.parse_args()
     try:
         if args.command == 'build':
-            build(args.config, args.output, args.cache)
+            build(args.config, args.output, args.cache, fit_custom_colors=args.fit_custom_colors)
         elif args.command == 'examine':
             print(json.dumps(inspect(load_json(args.file)), indent=2))
         elif args.command == 'check':

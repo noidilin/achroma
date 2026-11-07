@@ -1,7 +1,11 @@
-"""Deterministic CSS filter fitting. No network or third-party dependencies."""
+"""Validated default filter lock and seeded, platform-dependent custom fitting."""
 
+import hashlib
+import json
 import math
+from pathlib import Path
 import random
+import re
 
 VERSION = 1
 MAX_ERROR = 8.0  # maximum absolute error per sRGB channel (0..255)
@@ -29,6 +33,73 @@ def apply(values):
     rgb = [min(1, max(0, sum(a * b for a, b in zip(row, rgb)))) for row in matrix]
     rgb = [min(1, max(0, x * brightness)) for x in rgb]
     return [255 * min(1, max(0, (x - .5) * contrast + .5)) for x in rgb]
+
+
+def palette_digest(palettes):
+    return hashlib.sha256(json.dumps(palettes, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+
+
+def locked(palettes, path):
+    """Validate canonical derived input; never fall back to a cache or fitter."""
+    def require(condition, message):
+        if not condition:
+            raise ValueError(f'Filter lock: {message}')
+
+    def keys(value, expected, label):
+        require(isinstance(value, dict) and set(value) == set(expected), f'{label}: unexpected fields')
+
+    def checksum(value, length, label):
+        require(isinstance(value, str) and re.fullmatch(f'[0-9a-f]{{{length}}}', value) is not None,
+                f'{label}: invalid digest')
+
+    def unique(pairs):
+        result = {}
+        for key, value in pairs:
+            require(key not in result, f'duplicate JSON field: {key}')
+            result[key] = value
+        return result
+
+    lock = json.loads(Path(path).read_text(encoding='utf-8'), object_pairs_hook=unique)
+    keys(lock, ('schemaVersion', 'fitterVersion', 'resolvedPalettesSha256', 'provenance', 'filters'), 'root')
+    require(type(lock['schemaVersion']) is int and lock['schemaVersion'] == 1, 'unsupported schema version')
+    require(type(lock['fitterVersion']) is int and lock['fitterVersion'] == VERSION, 'unsupported fitter version')
+    checksum(lock['resolvedPalettesSha256'], 64, 'resolved palettes')
+    require(lock['resolvedPalettesSha256'] == palette_digest(palettes), 'stale resolved palettes digest')
+    provenance = lock['provenance']
+    keys(provenance, ('sourceRevision', 'sourceArchiveSha256', 'nativeArtifacts', 'runtime', 'note'), 'provenance')
+    checksum(provenance['sourceRevision'], 40, 'source revision')
+    checksum(provenance['sourceArchiveSha256'], 64, 'source archive')
+    keys(provenance['nativeArtifacts'], ('import.json', 'lib.less'), 'native artifacts')
+    for value in provenance['nativeArtifacts'].values():
+        checksum(value, 64, 'native artifact')
+    for name in ('runtime', 'note'):
+        require(isinstance(provenance[name], str) and bool(provenance[name].strip()), f'invalid {name}')
+    colors = {color for palette in palettes.values() for color in palette.values()}
+    keys(lock['filters'], colors, 'resolved color coverage')
+    result = {}
+    bounds = ((0, 100), (0, 100), (0, 8000), (0, 360), (0, 200), (0, 200))
+    for color, record in lock['filters'].items():
+        require(isinstance(color, str) and re.fullmatch('#[0-9a-f]{6}', color) is not None, 'invalid color')
+        keys(record, ('parameters', 'maxChannelError'), color)
+        parameters = record['parameters']
+        require(isinstance(parameters, list) and len(parameters) == 6, f'{color}: expected six parameters')
+        for value, (low, high) in zip(parameters, bounds):
+            require(type(value) in (int, float) and low <= value <= high and math.isfinite(value)
+                    and round(value, 4) == value, f'{color}: invalid rounded parameter')
+        reported = record['maxChannelError']
+        require(type(reported) in (int, float) and 0 <= reported <= MAX_ERROR and math.isfinite(reported),
+                f'{color}: invalid reported error')
+        inv, sep, sat, hue, bright, contrast = parameters
+        emitted = [inv / 100, sep / 100, sat / 100, math.radians(hue), bright / 100, contrast / 100]
+        target = [int(color[i:i + 2], 16) for i in (1, 3, 5)]
+        error = max(abs(a - b) for a, b in zip(apply(emitted), target))
+        require(error <= MAX_ERROR, f'{color}: emitted filter exceeds channel tolerance')
+        require(round(error, 4) == reported, f'{color}: reported error disagrees with emitted filter')
+        css = (f'brightness(0) saturate(100%) invert({inv:.4f}%) sepia({sep:.4f}%) '
+               f'saturate({sat:.4f}%) hue-rotate({hue:.4f}deg) '
+               f'brightness({bright:.4f}%) contrast({contrast:.4f}%)')
+        result[color] = {'css': css, 'max_channel_error': reported}
+    return result
 
 
 def fit(color):

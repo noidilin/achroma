@@ -24,7 +24,7 @@ def write_json(path, data):
     stylus.atomic_write(path, stylus.json_bytes(data))
 
 
-def build(output, cache, version, revision):
+def build(output, cache, version, revision, *, fit_custom_colors=False):
     validate_release({'version': version, 'sourceRevision': revision})
     output, cache = Path(output).resolve(), Path(cache).resolve()
     # Producer artifacts must never overwrite source or installed application data.
@@ -54,9 +54,11 @@ def build(output, cache, version, revision):
         config.mkdir()
         write_json(config / 'palette.json', palettes)
         shutil.copyfile(ROOT / 'applications/stylus/mapping.json', config / 'mapping.json')
+        if not fit_custom_colors:
+            shutil.copyfile(ROOT / 'applications/stylus/filters.lock.json', config / 'filters.lock.json')
         shutil.copytree(ROOT / 'applications/stylus/vendor', config / 'vendor')
         native = stage / 'native'
-        stylus.build(config, native, cache / 'stylus')
+        stylus.build(config, native, cache / 'stylus', fit_custom_colors=fit_custom_colors)
         report = stylus.load_json(native / 'build-report.json')
         if report['summary']['styles'] != 132:
             raise ValueError('Unexpected style count; review the contract before updating upstream')
@@ -131,10 +133,13 @@ def main():
     parser.add_argument('--cache', type=Path, required=True)
     parser.add_argument('--version', required=True)
     parser.add_argument('--source-revision', required=True)
+    parser.add_argument('--fit-custom-colors', action='store_true',
+                        help='Explicitly bypass default lock for platform-dependent custom fitting')
     args = parser.parse_args()
     sys.addaudithook(deny_network)
     try:
-        build(args.output, args.cache, args.version, args.source_revision)
+        build(args.output, args.cache, args.version, args.source_revision,
+              fit_custom_colors=args.fit_custom_colors)
     except (ValueError, KeyError, OSError) as error:
         parser.exit(1, f'achroma: {error}\n')
 
