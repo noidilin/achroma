@@ -1,0 +1,272 @@
+/* ==UserStyle==
+@name         achroma complement
+@version      20251204.06.12
+@namespace    ?
+@description  userstyle for achroma color theme
+@license      MIT
+==/UserStyle== */
+
+@-moz-document regexp("^(?!(https|http):\\/\\/(monkeytype\\.com|localhost:(3000|5173)|tweakcn\\.com)\\/).*$") {
+/* force enhanced text rendering */
+  /* stylus regex reference: [Stylus Regex](https://stylus-regex.pabli.dev/) */
+
+  :not([class*='icon']):not([class*='button']):not([class*='mjx']):not(
+      [class*='fa']
+    ):not(i):not(iframe) {
+    text-shadow: 0.015em 0.015em 0.035em #9d9d9d !important;
+    /* font-weight: 500 !important; */
+    /* font-family: "Roboto", "GenSenRounded TW", "Noto Sans CJK TC" !important; */
+    /* color: #87878700 !important */
+  }
+
+  body {
+    -webkit-text-stroke-width: 0.16px;
+    text-rendering: geometricPrecision;
+    /* text-shadow: 0 0 rgba(128, 128, 128, 0.2) */
+  }
+}/* leechblock extension */
+
+.leechblock-timer {
+  padding: 4px 8px !important;
+  background: #1e1e1e !important;
+  color: #b3b3b3 !important;
+  border: 0px solid #9d9d9d !important;
+  font-weight: bold !important;
+  border-radius: 4px !important;
+}
+
+@-moz-document domain("www.youtube.com") {
+/* youtube progress bar color */
+
+  .ytp-swatch-background-color {
+    background-color: rgb(240, 240, 240);
+  }
+  .ytp-progress-linear-live-buffer {
+    background-color: rgb(180, 180, 180);
+  }
+}
+
+@-moz-document domain("linux.vbird.org") {
+/* dark theme for vbird blog */
+
+  ::-moz-selection,
+  ::selection {
+    background: #404040;
+  }
+
+  footer,
+  .block1.history,
+  img[alt*='鳥哥'] {
+    display: none;
+  }
+
+  html,
+  body,
+  nav.bg-dark,
+  .myfooter {
+    background-color: #191919 !important;
+  }
+
+  .thintop {
+    color: #dcdcdc;
+  }
+
+  figcaption {
+    color: #9d9d9d;
+  }
+
+  .bg-dark {
+    background-color: #242424 !important;
+  }
+
+  .abstract {
+    width: 100%;
+    padding: 20px 40px;
+    background-color: #191919;
+    color: #707070;
+    box-shadow: 0 0;
+    border: 0;
+    font-style: italic;
+  }
+
+  body {
+    color: #878787;
+  }
+
+  .myhint,
+  .myhint2 {
+    color: #dcdcdc;
+  }
+
+  .links a,
+  .block1 a,
+  .myfooter a {
+    color: #aaaaaa;
+    text-decoration: underline;
+  }
+
+  header {
+    background-color: #191919;
+    color: #eaeaea;
+
+    & h2,
+    & p {
+      color: #5d5d5d;
+    }
+  }
+
+  .subnav ul {
+    & li.active {
+      background: #eaeaea;
+    }
+
+    & li.dir {
+      background-color: #b3b3b3;
+
+      & a {
+        color: #353535;
+        font-weight: 600;
+        text-shadow: 0.015em 0.015em 0.035em #9d9d9d;
+      }
+    }
+
+    & li {
+      border-bottom: 0;
+      border-left: 0px solid #353535;
+      background-color: #353535;
+    }
+  }
+
+  .block1 {
+    padding-left: 0;
+
+    & table.news {
+      margin-left: 40px;
+    }
+
+    & h3,
+    & p,
+    & .toplist {
+      padding-left: 40px;
+    }
+
+    & h3 {
+      color: #dcdcdc;
+      background-color: #242424;
+      border: 0;
+      box-shadow: 0 0;
+    }
+
+    .toplist {
+      color: #dcdcdc;
+      border: 0;
+    }
+  }
+
+  table.news {
+    border: 0;
+    background-color: #242424;
+    box-shadow: 0 0 0 0;
+
+    & tr:first-child,
+    & td:first-child {
+      background-color: #353535 !important;
+    }
+
+    & tr:hover {
+      color: #9d9d9d;
+      background-color: #4e4e4e;
+    }
+  }
+
+  .table {
+    color: #686868;
+
+    & a {
+      color: #aaaaaa;
+    }
+
+    & tbody {
+      & tr:hover {
+        color: #686868;
+      }
+    }
+  }
+
+  .table-success,
+  .table-success > td,
+  .table-success > th {
+    background-color: #242424;
+  }
+
+  .table-success tbody + tbody,
+  .table-success td,
+  .table-success th,
+  .table-success thead th {
+    border-color: #353535;
+  }
+
+  .vbirdface {
+    color: #707070;
+    font-style: italic;
+    border: 0;
+    background-color: #242424;
+
+    & legend {
+      color: #707070;
+      background-color: #353535;
+    }
+  }
+
+  .myfooter {
+    margin-top: 30px;
+    border-top: 0;
+    color: #707070;
+
+    & img {
+      filter: grayscale(100%);
+    }
+  }
+
+  .code {
+    margin-left: 40px;
+    border: 0;
+    padding: 15px 30px;
+    font-family: commitMono Nerd Font;
+    background-color: #353535;
+    box-shadow: 0 0;
+    border-radius: 5px;
+    color: #878787;
+
+    & .cmd {
+      color: #b3b3b3;
+    }
+
+    & .write {
+      color: #eaeaea;
+    }
+
+    & .say {
+      color: #5d5d5d;
+    }
+
+    & .hd {
+      color: #dcdcdc;
+    }
+  }
+}
+
+@-moz-document domain("boot.dev") {
+.bg-image-blue {
+  background-image: linear-gradient(#191919, #191919)
+}
+
+.bg-image-blue-gray {
+  background-image: linear-gradient(#1e1e1e, #1e1e1e)
+}
+
+
+.bg-image-black {
+  background-image: linear-gradient(#151515, #151515)
+}
+}

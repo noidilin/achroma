@@ -32,6 +32,10 @@ ARTIFACT_PATHS = ({'data/consumer.json', 'reports/stylus-build.json',
                    'themes/stylus/import.json', 'themes/stylus/lib.less'} | LICENSE_PATHS
                   | {f'{kind}/{v}.{ext}' for v in FLAVORS for kind, ext in
                      (('palette', 'json'), ('mappings/stylus', 'json'), ('fragments/stylus', 'less'))})
+COMPLEMENT_ARTIFACT = 'themes/stylus/achroma-complement.user.css'
+COMPLEMENT_INPUTS = {'tools/complement.py'} | {
+    f'applications/stylus/complement/{name}' for name in
+    ('style.css.tmpl', 'upstream.user.css', 'upstream.lock.json')}
 IDENTIFIER = r'(?:0|[1-9][0-9]*|[0-9A-Za-z-]*[A-Za-z-][0-9A-Za-z-]*)'
 VERSION_PATTERN = (r'(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)'
                    + rf'(?:-{IDENTIFIER}(?:\.{IDENTIFIER})*)?')
@@ -144,8 +148,13 @@ def validate_manifest(value):
     for name in names:
         text(name, 'native name')
     require(len(set(names)) == STYLE_COUNT, 'Duplicate native names')
-    hash_map(value['buildInputs'], BUILD_INPUT_PATHS, 'manifest build inputs')
-    hash_map(value['artifacts'], ARTIFACT_PATHS, 'manifest artifacts')
+    require(isinstance(value['artifacts'], dict), 'manifest artifacts: expected object')
+    # Preserve verification of v0.1.0 archives; the optional extension is all-or-nothing.
+    has_complement = COMPLEMENT_ARTIFACT in value['artifacts']
+    hash_map(value['buildInputs'], BUILD_INPUT_PATHS | (COMPLEMENT_INPUTS if has_complement else set()),
+             'manifest build inputs')
+    hash_map(value['artifacts'], ARTIFACT_PATHS | ({COMPLEMENT_ARTIFACT} if has_complement else set()),
+             'manifest artifacts')
 
 
 def validate_report(value, consumer):

@@ -163,6 +163,8 @@ Local actionlint is syntax/static validation, **not remote Actions execution**.
 - `palette/{dark,light}.json`
 - `mappings/stylus/{dark,light}.json`
 - `themes/stylus/{import.json,lib.less}`
+- `themes/stylus/achroma-complement.user.css` (new optional standalone UserCSS;
+  absent from v0.1.0, not an extra backup record)
 - `fragments/stylus/{dark,light}.less`
 - `data/consumer.json`
 - `reports/stylus-build.json`
@@ -175,6 +177,15 @@ provenance, and no compression-library variability (`ZIP_STORED`). Separate
 itself; the external checksum covers the manifest too. Neither checksum file nor
 archive URL/checksum is embedded in the payload. Workflow artifact transport
 metadata need not be reproducible; the contained ZIP is.
+
+The complement is a separate, manually imported style, with original-source
+provenance and palette-aware behavior documented in [Userstyles](userstyle.md).
+Its optional member requires four additional build-input hashes as one extension;
+the updated verifier still accepts v0.1.0 without either. Old strict consumers
+need an allowlist/verifier update before consuming a new archive with this member.
+Coordinate that consumer update and use a newly reviewed minor version before 1.0;
+never overwrite v0.1.0. It does not change the main backup's native hashes/counts,
+settings, or the disabled publication gate.
 
 Manifest v1 has exactly `schemaVersion`, `release`, `applications`, `buildInputs`,
 and `artifacts`. `release` matches the consumer aggregate's `version` and

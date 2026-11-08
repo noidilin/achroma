@@ -18,6 +18,7 @@ stylus = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(stylus)
 sys.path.insert(0, str(ROOT / 'tools'))
 from contract import validate_mapping, validate_palette, validate_release
+import complement
 
 
 def write_json(path, data):
@@ -79,13 +80,15 @@ def build(output, cache, version, revision, *, fit_custom_colors=False):
         for name in ('import.json', 'lib.less'):
             stylus.atomic_write(payload / 'themes/stylus' / name, (native / name).read_bytes())
         write_json(payload / 'reports/stylus-build.json', report)
+        stylus.atomic_write(payload / complement.ARTIFACT, complement.render(palettes, version))
         release = {'version': version, 'sourceRevision': revision}
         write_json(payload / 'data/consumer.json', {
             'schemaVersion': 1, 'release': release, 'palettes': palettes,
             'mappings': {'stylus': mappings},
         })
         shutil.copytree(ROOT / 'licenses', payload / 'licenses')
-        sources = [ROOT / 'tools/build.py', ROOT / 'tools/contract.py', *sorted((ROOT / 'schemas').glob('*.json'))]
+        sources = [ROOT / 'tools/build.py', ROOT / 'tools/contract.py', ROOT / 'tools/complement.py',
+                   *sorted((ROOT / 'schemas').glob('*.json'))]
         sources += sorted((ROOT / 'palette').glob('*.json'))
         sources += sorted(p for p in (ROOT / 'applications/stylus').rglob('*') if p.is_file()
                           and '__pycache__' not in p.parts and p.suffix != '.pyc')

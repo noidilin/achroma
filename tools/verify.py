@@ -11,6 +11,7 @@ import zipfile
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import contract
+import complement
 
 
 def json_object(pairs):
@@ -134,6 +135,9 @@ def verify(archive, sums):
                              'Report/native hash mismatch')
         contract.text(z.read('themes/stylus/lib.less').decode('utf-8'), 'native library')
         validate_native(load('themes/stylus/import.json'), manifest, report, consumer)
+        if contract.COMPLEMENT_ARTIFACT in manifest['artifacts']:
+            complement.validate(z.read(contract.COMPLEMENT_ARTIFACT).decode('utf-8'),
+                                consumer['palettes'], manifest['release']['version'])
     return manifest
 
 
