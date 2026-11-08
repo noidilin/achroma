@@ -105,6 +105,42 @@ class ContractTests(unittest.TestCase):
                 self.assertEqual(entry.external_attr >> 16, 0o100644)
                 self.assertEqual(z.read(entry.filename), (self.payload / entry.filename).read_bytes())
 
+    def test_optional_complement_manifest_extension_is_all_or_nothing(self):
+        manifest = stylus.load_json(self.payload / 'manifest.json')
+        contract = verifier.contract
+        self.assertIn(contract.COMPLEMENT_ARTIFACT, manifest['artifacts'])
+        self.assertTrue(contract.COMPLEMENT_INPUTS <= set(manifest['buildInputs']))
+        contract.validate_manifest(manifest)
+        manifest['artifacts'].pop(contract.COMPLEMENT_ARTIFACT)
+        with self.assertRaisesRegex(ValueError, 'manifest build inputs'):
+            contract.validate_manifest(manifest)
+        for path in contract.COMPLEMENT_INPUTS:
+            manifest['buildInputs'].pop(path)
+        # Preserve support for the original v0.1.0 archive contract.
+        contract.validate_manifest(manifest)
+
+    def test_rehashed_complement_palette_tampering_is_rejected(self):
+        with zipfile.ZipFile(self.archive) as original:
+            entries = original.infolist()
+            payload = {entry.filename: original.read(entry.filename) for entry in entries}
+        name = verifier.contract.COMPLEMENT_ARTIFACT
+        source = payload[name].decode().replace('--achroma-complement-base: #1e1e1e;',
+                                               '--achroma-complement-base: #000000;')
+        self.assertNotEqual(source.encode(), payload[name])
+        payload[name] = source.encode()
+        manifest = json.loads(payload['manifest.json'])
+        manifest['artifacts'][name] = stylus.digest(payload[name])
+        payload['manifest.json'] = stylus.json_bytes(manifest)
+        with tempfile.TemporaryDirectory(dir=self.root) as directory:
+            archive = Path(directory) / self.archive.name
+            with zipfile.ZipFile(archive, 'w') as changed:
+                for entry in entries:
+                    changed.writestr(entry, payload[entry.filename])
+            sums = Path(directory) / 'SHA256SUMS'
+            sums.write_text(f'{stylus.digest(archive.read_bytes())}  {archive.name}\n')
+            with self.assertRaisesRegex(ValueError, 'Complement palette differs'):
+                verifier.verify(archive, sums)
+
     def test_report_and_consumer_forbid_personal_environment(self):
         for name in ('manifest.json', 'data/consumer.json', 'reports/stylus-build.json'):
             text = (self.payload / name).read_text()

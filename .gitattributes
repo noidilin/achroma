@@ -1,0 +1,2 @@
+# Preserve the checksum-pinned personal style's original CRLF bytes on every platform.
+applications/stylus/complement/upstream.user.css -text whitespace=cr-at-eol

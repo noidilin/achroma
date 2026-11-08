@@ -37,10 +37,12 @@ python3 -B tools/check.py --output .work/checked --cache .work/check-cache \
   --version 0.1.0-dev --source-revision "$(git rev-parse HEAD)"
 ```
 
-This runs the relocated 22 tests, producer contract regressions (including two
+This runs the Stylus adapter tests, producer contract regressions (including two
 isolated checkout/home/cache builds), archive verification, all **132 styles × 2
 flavor paths**, 310 document sections, helper fixtures, and the plain Python
-consumer example. Local generation has a Python network audit hook and the compiler
+consumer example. The separate optional complement is also checked for UserCSS/CSS
+syntax, five document scopes and canonical light/dark palette values (see below).
+Local generation has a Python network audit hook and the compiler
 has connection guards; these are not whole-process isolation. Linux CI runs the
 **entire check process** in a fresh network namespace after online preparation.
 Missing Node/dependencies or namespace setup fail rather than installing or
@@ -54,6 +56,17 @@ Publication is disabled unless the operator explicitly enables it **after** sett
 up required reviewers on the `release` environment. See the
 [first-release runbook](docs/release.md); an environment name alone enforces no approval.
 
+## Optional personal complement
+
+Source builds also package `themes/stylus/achroma-complement.user.css` as a
+**separate optional style**, leaving the 132-style import unchanged. It adapts the
+personal style's text rendering, LeechBlock, YouTube, Vbird and Boot.dev overrides
+to canonical palettes and browser light/dark preference. Import is manual; broad
+rendering and hidden-content rules require visual review. Its original source is
+pinned separately and can be checked with `python3 -I -B tools/complement.py check-upstream`.
+See [complement documentation](docs/userstyle.md) for behavior, provenance, update
+checks and the consumer-compatibility gate before a future release.
+
 ## Source ownership
 
 - `palette/{dark,light}.json`: canonical 66-key palettes, lowercase `#rrggbb`.
@@ -63,6 +76,9 @@ up required reviewers on the `release` environment. See the
 - `applications/stylus/filters.lock.json`: versioned, reviewed default coefficients
   preserving approved native bytes across platforms; never a diagnostic cache.
   Explicit custom-color fitting remains platform-dependent (see [refresh/customization](docs/stylus.md)).
+- `applications/stylus/complement/`: original personal UserCSS snapshot, provenance
+  lock, and maintained palette-aware template.
+- `tools/complement.py`: offline optional-style renderer and explicit source-update checks.
 - `tools/build.py`: disposable staging adapter and reproducible release packaging.
 - `schemas/`, `fixtures/`, `tests/`: contract and extraction fidelity evidence.
 - `licenses/`: preserved upstream MIT notices and license-source provenance.

@@ -1,0 +1,276 @@
+/* ==UserStyle==
+@name         Achroma complement
+@version      {{VERSION}}
+@namespace    https://github.com/noidilin/achroma/complement
+@description  Optional palette-aware text rendering and site overrides for Achroma
+@homepageURL  https://github.com/noidilin/achroma
+@license      MIT
+==/UserStyle== */
+
+/* Adapted from https://userstyles.world/api/style/25419.user.css
+ * Reviewed upstream SHA-256: {{SOURCE_SHA256}}
+ * No automatic upstream updates: the original is not palette-aware.
+ * Colors follow prefers-color-scheme, independently of Catppuccin flavor settings.
+ */
+
+@-moz-document regexp(".*") {
+  :root {
+{{LIGHT_PALETTE}}
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+{{DARK_PALETTE}}
+    }
+  }
+
+  /* Global LeechBlock extension timer, as in the original style. */
+  .leechblock-timer {
+    padding: 4px 8px !important;
+    background: var(--achroma-complement-base) !important;
+    color: var(--achroma-complement-text) !important;
+    border: 0 solid var(--achroma-complement-subtext1) !important;
+    font-weight: bold !important;
+    border-radius: 4px !important;
+  }
+}
+
+/* Global rendering except the original three site/development exclusions. */
+@-moz-document regexp("^(?!(https|http):\\/\\/(monkeytype\\.com|localhost:(3000|5173)|tweakcn\\.com)\\/).*$") {
+  :not([class*="icon"]):not([class*="button"]):not([class*="mjx"]):not([class*="fa"]):not(i):not(iframe) {
+    text-shadow: 0.015em 0.015em 0.035em var(--achroma-complement-subtext1) !important;
+  }
+
+  body {
+    -webkit-text-stroke-width: 0.16px;
+    text-rendering: geometricPrecision;
+  }
+}
+
+@-moz-document domain("www.youtube.com") {
+  .ytp-swatch-background-color {
+    background-color: var(--achroma-complement-mono25);
+  }
+
+  .ytp-progress-linear-live-buffer {
+    background-color: var(--achroma-complement-text);
+  }
+}
+
+@-moz-document domain("linux.vbird.org") {
+  ::-moz-selection,
+  ::selection {
+    background: var(--achroma-complement-surface2);
+  }
+
+  footer,
+  .block1.history,
+  img[alt*="鳥哥"] {
+    display: none;
+  }
+
+  html,
+  body,
+  nav.bg-dark,
+  .myfooter {
+    background-color: var(--achroma-complement-mantle) !important;
+  }
+
+  .thintop {
+    color: var(--achroma-complement-mono24);
+  }
+
+  figcaption {
+    color: var(--achroma-complement-subtext1);
+  }
+
+  .bg-dark {
+    background-color: var(--achroma-complement-mono04) !important;
+  }
+
+  .abstract {
+    width: 100%;
+    padding: 20px 40px;
+    background-color: var(--achroma-complement-mantle);
+    color: var(--achroma-complement-overlay2);
+    box-shadow: 0 0;
+    border: 0;
+    font-style: italic;
+  }
+
+  body {
+    color: var(--achroma-complement-subtext0);
+  }
+
+  .myhint,
+  .myhint2 {
+    color: var(--achroma-complement-mono24);
+  }
+
+  .links a,
+  .block1 a,
+  .myfooter a {
+    color: var(--achroma-complement-mono20);
+    text-decoration: underline;
+  }
+
+  header {
+    background-color: var(--achroma-complement-mantle);
+    color: var(--achroma-complement-mono25);
+  }
+
+  header h2,
+  header p {
+    color: var(--achroma-complement-overlay1);
+  }
+
+  .subnav ul li.active {
+    background: var(--achroma-complement-mono25);
+  }
+
+  .subnav ul li.dir {
+    background-color: var(--achroma-complement-text);
+  }
+
+  .subnav ul li.dir a {
+    color: var(--achroma-complement-surface1);
+    font-weight: 600;
+    text-shadow: 0.015em 0.015em 0.035em var(--achroma-complement-subtext1);
+  }
+
+  .subnav ul li {
+    border-bottom: 0;
+    border-left: 0 solid var(--achroma-complement-surface1);
+    background-color: var(--achroma-complement-surface1);
+  }
+
+  .block1 {
+    padding-left: 0;
+  }
+
+  .block1 table.news {
+    margin-left: 40px;
+  }
+
+  .block1 h3,
+  .block1 p,
+  .block1 .toplist {
+    padding-left: 40px;
+  }
+
+  .block1 h3 {
+    color: var(--achroma-complement-mono24);
+    background-color: var(--achroma-complement-mono04);
+    border: 0;
+    box-shadow: 0 0;
+  }
+
+  .block1 .toplist {
+    color: var(--achroma-complement-mono24);
+    border: 0;
+  }
+
+  table.news {
+    border: 0;
+    background-color: var(--achroma-complement-mono04);
+    box-shadow: 0 0 0 0;
+  }
+
+  table.news tr:first-child,
+  table.news td:first-child {
+    background-color: var(--achroma-complement-surface1) !important;
+  }
+
+  table.news tr:hover {
+    color: var(--achroma-complement-subtext1);
+    background-color: var(--achroma-complement-overlay0);
+  }
+
+  .table {
+    color: var(--achroma-complement-mono14);
+  }
+
+  .table a {
+    color: var(--achroma-complement-mono20);
+  }
+
+  .table tbody tr:hover {
+    color: var(--achroma-complement-mono14);
+  }
+
+  .table-success,
+  .table-success > td,
+  .table-success > th {
+    background-color: var(--achroma-complement-mono04);
+  }
+
+  .table-success tbody + tbody,
+  .table-success td,
+  .table-success th,
+  .table-success thead th {
+    border-color: var(--achroma-complement-surface1);
+  }
+
+  .vbirdface {
+    color: var(--achroma-complement-overlay2);
+    font-style: italic;
+    border: 0;
+    background-color: var(--achroma-complement-mono04);
+  }
+
+  .vbirdface legend {
+    color: var(--achroma-complement-overlay2);
+    background-color: var(--achroma-complement-surface1);
+  }
+
+  .myfooter {
+    margin-top: 30px;
+    border-top: 0;
+    color: var(--achroma-complement-overlay2);
+  }
+
+  .myfooter img {
+    filter: grayscale(100%);
+  }
+
+  .code {
+    margin-left: 40px;
+    border: 0;
+    padding: 15px 30px;
+    font-family: "CommitMono Nerd Font", monospace;
+    background-color: var(--achroma-complement-surface1);
+    box-shadow: 0 0;
+    border-radius: 5px;
+    color: var(--achroma-complement-subtext0);
+  }
+
+  .code .cmd {
+    color: var(--achroma-complement-text);
+  }
+
+  .code .write {
+    color: var(--achroma-complement-mono25);
+  }
+
+  .code .say {
+    color: var(--achroma-complement-overlay1);
+  }
+
+  .code .hd {
+    color: var(--achroma-complement-mono24);
+  }
+}
+
+@-moz-document domain("boot.dev") {
+  .bg-image-blue {
+    background-image: linear-gradient(var(--achroma-complement-mantle), var(--achroma-complement-mantle));
+  }
+
+  .bg-image-blue-gray {
+    background-image: linear-gradient(var(--achroma-complement-base), var(--achroma-complement-base));
+  }
+
+  .bg-image-black {
+    background-image: linear-gradient(var(--achroma-complement-crust), var(--achroma-complement-crust));
+  }
+}

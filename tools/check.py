@@ -31,6 +31,9 @@ def main():
     run(['node', str(ROOT / 'tests/stylus/check.mjs'),
          str(output / 'payload/themes/stylus/import.json'),
          str(output / 'payload/themes/stylus/lib.less')])
+    run(['node', str(ROOT / 'tests/stylus/check-complement.mjs'),
+         str(output / 'payload/themes/stylus/achroma-complement.user.css'),
+         str(output / 'payload/palette/light.json'), str(output / 'payload/palette/dark.json')])
     run(python + [str(ROOT / 'fixtures/consumer/compose.py'), str(output / 'payload')])
 
 
