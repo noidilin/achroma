@@ -1,18 +1,18 @@
 {
   "schema": 1,
-  "standard_commit": "b11ebae921abddde23e56603e059199ef06bd1f8",
+  "standard_commit": "a572540347086ba9165fa98da690296d86f9d6e9",
   "note": "Export release is independently pinned by checksum; compile-check before promotion.",
   "files": {
     "export.json": {
       "url": "https://github.com/catppuccin/userstyles/releases/download/all-userstyles-export/import.json",
-      "sha256": "b0c384cf3168110cd8748e52b26a4256712c2ed71ed80aa5a860ad17477d6f3a"
+      "sha256": "1cf9dae34cc365330d6de7360ba1d6108de4e5c18d1bf9b40e7261adcb19003a"
     },
     "std.less": {
-      "url": "https://raw.githubusercontent.com/catppuccin/userstyles/b11ebae921abddde23e56603e059199ef06bd1f8/lib/std/v1.less",
+      "url": "https://raw.githubusercontent.com/catppuccin/userstyles/a572540347086ba9165fa98da690296d86f9d6e9/lib/std/v1.less",
       "sha256": "5caf4ea9a9fb2b3f350cdc84dfeaf2979b0f8bf3a9bd5f849202fb5ae2e819f3"
     },
     "LICENSE": {
-      "url": "https://raw.githubusercontent.com/catppuccin/userstyles/b11ebae921abddde23e56603e059199ef06bd1f8/LICENSE",
+      "url": "https://raw.githubusercontent.com/catppuccin/userstyles/a572540347086ba9165fa98da690296d86f9d6e9/LICENSE",
       "sha256": "814096d2c34cc216c624738a49356f32b7237733b4f7edb0685f4e50ef5074ba"
     },
     "pygments.css": {
